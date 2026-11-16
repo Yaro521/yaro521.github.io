@@ -16,8 +16,24 @@ function setup() {
   c2 = color("red");
 }
 
+function colorChanger(colorCounter) {
+  push();
+  fill(lerpColor(c1, c2, colorCounter));
+  rotateX(angle * 1.5);
+  torus(torusSize, 30, 20, 7);
+
+  pop();
+  push();
+  fill(lerpColor(c2, c1, colorCounter));
+  rotateY(angle * 1.5);
+  torus(torusSize, 30, 20, 7);
+  pop();
+}
+
+
 function draw() {
   let colorCounter = (sin(((frameCount % speed) / speed) * TAU) + 1) / 2;
+
 
   background(200);
 
@@ -50,17 +66,7 @@ function draw() {
   }
   pop();
 
-  push();
-  fill(lerpColor(c1, c2, colorCounter));
-  rotateX(angle * 1.5);
-  torus(torusSize, 30, 20, 7);
-
-  pop();
-  push();
-  fill(lerpColor(c2, c1, colorCounter));
-  rotateY(angle * 1.5);
-  torus(torusSize, 30, 20, 7);
-  pop();
+  colorChanger(colorCounter);
 
   push();
   fill("lightgray");
@@ -73,7 +79,7 @@ function draw() {
     push();
     rotate(angle);
     rotate((i * TAU) / n);
-    
+
     translate(0, 150);
     rotate((-i * TAU) / n);
     sphere(30);
